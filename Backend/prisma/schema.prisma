@@ -4,6 +4,7 @@
 // Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
+
 generator client {
   provider = "prisma-client-js"
 }
@@ -11,16 +12,52 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
-  directUrl = env("DIRECT_URL")
 }
 
 model User{
   id Int @id @default(autoincrement())
-  name String
-  email String
+  name String @unique
+  email String @unique
   password String
   referanceToken String?
+  Days Day[]
+}
+
+model Day{
+   id Int @id @default(autoincrement())
+   day String @unique
+   author User @relation(fields: [authorID] , references: [id])
+   authorID Int
+   Breakfasts BreakfastData[]
+   Lunchs LunchData[]
+   Dinners DinnerData[]
 }
 
 
-//03y2zxvh0jMWyBp0
+model BreakfastData{
+   id Int @id @default(autoincrement())
+   Title String
+   contents String
+   MealType String
+   author Day @relation(fields: [authorID],references: [id])
+   authorID Int
+}
+
+model LunchData{
+   id Int @id @default(autoincrement())
+   Title String
+   contents String
+   MealType String
+   author Day @relation(fields: [authorID],references: [id])
+   authorID Int
+}
+
+model DinnerData{
+   id Int @id @default(autoincrement())
+   Title String
+   contents String
+   MealType String
+   author Day @relation(fields: [authorID],references: [id])
+   authorID Int
+}
+

@@ -2,6 +2,7 @@ import express from "express";
 import cors from 'cors';
 import dotenv from "dotenv"
 import userRouter from "../router/user"
+import mealRouter from "../router/days"
 import bodyparser from "body-parser";
 import cookieParser from "cookie-parser";
 
@@ -16,6 +17,7 @@ app.use(bodyparser.urlencoded({extended:false}));
 app.use(cors({origin:process.env.CLIENT_URL,credentials:true}))
 
 app.use("/api/v1/user",userRouter);
+app.use("/api/v1/meal",mealRouter)
 
 app.listen(PORT,()=>{
     console.log(`Listing on ${PORT}`)

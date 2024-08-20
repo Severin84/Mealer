@@ -3,7 +3,8 @@ import { Request, Response } from "express";
 import {User,userInput,loginUser} from "../models/user";
 import {PrismaClient} from "@prisma/client"
 import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken"
+import jwt from "jsonwebtoken";
+
 const prisma=new PrismaClient()
 
 const isPasswordCorrect=async function(truePassword:userInput['password'],password:userInput['password']) {
@@ -41,11 +42,17 @@ const generateAccessandRefreshToken=async(userID)=>{
    const accessToken=generateAccessToken(user);
    
    const refreshToken=generateRefreshToken(user);
-                                               
-   user.referanceToken=refreshToken;
-  
+    
+   const refupdate=await prisma.user.update({
+      where:{
+        id:userID 
+      },
+      data:{
+         referanceToken:refreshToken
+      }
+   })
+   
    return {accessToken,refreshToken};
-
 }
 
 const createUser=async(req:Request,res:Response)=>{
@@ -76,8 +83,8 @@ const createUser=async(req:Request,res:Response)=>{
       
        const hashedPassword=await bcrypt.hash(password,10);
 
-     
-       const userCreated=await prisma.user.create({data:{name:name,email:email,password:hashedPassword}});
+
+       const userCreated=await prisma.user.create({data:{name:name,email:email,password:hashedPassword,Days:{create:[]}}});
       
        res.status(200).json({message:"User Created"});
 
