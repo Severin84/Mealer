@@ -308,7 +308,7 @@ const updateDinner=async(req:Request,res:Response)=>{
       }
       
       if(Title){
-         const updateLunch=await prisma.dinnerData.update({
+         const updateDinner=await prisma.dinnerData.update({
             where:{
                id:parseInt(DinnerID)
             },
@@ -319,7 +319,7 @@ const updateDinner=async(req:Request,res:Response)=>{
       }
 
       if(contents){
-         const updateLunch=await prisma.dinnerData.update({
+         const updateDinner=await prisma.dinnerData.update({
             where:{
                id:parseInt(DinnerID)
             },
@@ -336,8 +336,135 @@ const updateDinner=async(req:Request,res:Response)=>{
    }
 }
 
+const deleteBreakfast=async(req:Request,res:Response)=>{
+   try{
+      const {authorID,mealID}=req.body
+      
+      if(!authorID||!mealID){
+          return res.status(400).json({message:"Insufficient Data"})
+      }
 
+      const user=await prisma.user.findFirst({
+         where:{
+            id:parseInt(authorID)
+         }
+      })
+
+      if(!user){
+          return res.status(404).json({message:"User not find"})
+      }
+
+      const breakfast=await prisma.breakfastData.findFirst({
+         where:{
+            id:parseInt(authorID)
+         }
+      })
+
+      if(!breakfast){
+         return res.status(404).json({message:"breakfast does not exist"})
+      }
+
+      const breakfastDelete=await prisma.breakfastData.delete({
+         where:{
+            id:parseInt(mealID)
+         }
+      })
+
+      res.status(200).json({message:"Meal Deleted"})
+   }catch(error){
+      res.status(401).json({message:"Something went wrong while deleting the breakfast"})
+   }
+}
+
+const deleteLunch=async(req:Request,res:Response)=>{
+   try{
+      const {authorID,mealID}=req.body
+      
+      if(!authorID||!mealID){
+          return res.status(400).json({message:"Insufficient Data"})
+      }
+
+      const user=await prisma.user.findFirst({
+         where:{
+            id:parseInt(authorID)
+         }
+      })
+
+      if(!user){
+          return res.status(404).json({message:"User not find"})
+      }
+
+      const Lunch=await prisma.lunchData.findFirst({
+         where:{
+            id:parseInt(authorID)
+         }
+      })
+
+      if(!Lunch){
+         return res.status(404).json({message:"breakfast does not exist"})
+      }
+
+      const LunchDelete=await prisma.lunchData.delete({
+         where:{
+            id:parseInt(mealID)
+         }
+      })
+
+      res.status(200).json({message:"Meal Deleted"})
+   }catch(error){
+      res.status(401).json({message:"Something went wrong while deleting the Lunch"})
+   }
+}
+
+const deleteDinner=async(req:Request,res:Response)=>{
+   try{
+      const {authorID,mealID}=req.body
+      
+      if(!authorID||!mealID){
+          return res.status(400).json({message:"Insufficient Data"})
+      }
+
+      const user=await prisma.user.findFirst({
+         where:{
+            id:parseInt(authorID)
+         }
+      })
+
+      if(!user){
+          return res.status(404).json({message:"User not find"})
+      }
+
+      const Dinner=await prisma.dinnerData.findFirst({
+         where:{
+            id:parseInt(authorID)
+         }
+      })
+
+      if(!Dinner){
+         return res.status(404).json({message:"breakfast does not exist"})
+      }
+
+      const DinnerDelete=await prisma.dinnerData.delete({
+         where:{
+            id:parseInt(mealID)
+         }
+      })
+
+      res.status(200).json({message:"Meal Deleted"})
+   }catch(error){
+      res.status(401).json({message:"Something went wrong while deleting the Dinner"})
+   }
+}
 
 export {
-    createMeal,createBreakfast,createDinner,createLunch,updateBreakfast,updateLunch,updateDinner
+    createMeal,
+    createBreakfast,
+    createDinner,
+    createLunch,
+    updateBreakfast,
+    updateLunch,
+    updateDinner,
+    deleteBreakfast,
+    deleteLunch,
+    deleteDinner
 }
