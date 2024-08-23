@@ -19,6 +19,7 @@ model User{
   name String @unique
   email String @unique
   password String
+  isLoggedIn Boolean @default(false)
   referanceToken String?
   Days Day[]
 }
@@ -61,3 +62,4 @@ model DinnerData{
    authorID Int
 }
 
+ 

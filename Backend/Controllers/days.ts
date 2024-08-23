@@ -3,11 +3,10 @@ import {PrismaClient} from "@prisma/client"
 
 const prisma=new PrismaClient();
 
-const createMeal=async(req:Request,res:Response)=>{
+const createDay=async(req:Request,res:Response)=>{
     try{
-       
        const {day,authorID}=req.body
-       console.log(req.body)
+
        if(!day||!authorID){
           return res.send(404).json({message:"Insufficient data"})
        }
@@ -34,6 +33,90 @@ const createMeal=async(req:Request,res:Response)=>{
     }
 }
 
+const updateday=async(req:Request,res:Response)=>{
+  try{
+     const {authorID,DayID,day}=req.body;
+
+     if(!authorID||!DayID||!day){
+       res.status(401).json({message:"Insufficient Data"});
+     }
+
+     const user=await prisma.user.findFirst({
+       where:{
+         id:parseInt(authorID)
+       }
+     })
+
+     if(!user){
+       res.status(404).json({message:"User Not found"})
+     }
+
+     const isdayexist=await prisma.day.findFirst({
+      where:{
+         id:parseInt(DayID)
+      }
+     })
+
+     if(!isdayexist){
+       res.status(404).json({message:"Day Does not exist"});
+     }
+
+     const updateDay=await prisma.day.update({
+      where:{
+         id:isdayexist.id
+      },
+      data:{
+         day:day
+      }
+     })
+
+     res.status(200).json({message:"Your day has been updated"})
+
+  }catch(error){
+     res.status(400).json({message:"Something went wrong while updating the day"})
+  }
+}
+
+
+const deleteDay=async(req:Request,res:Response)=>{
+   try{
+      const {authorID,DayId}=req.body;
+      
+      if(!authorID||!DayId){
+          res.status(401).json({message:"Insufficient Data"})
+      }
+
+      const isUser=await prisma.user.findFirst({
+         where:{
+            id:parseInt(authorID)
+         }
+      })
+
+      if(!isUser){
+          res.status(404).json({message:"User does not exist"})
+      }
+
+      const isDay=await prisma.day.findFirst({
+         where:{
+            id:parseInt(DayId)
+         }
+      })
+
+      if(!isDay){
+          res.send(404).json({message:"Day Does not exist"});
+      }
+
+      const deleteDay=await prisma.day.delete({
+         where:{
+            id:parseInt(DayId)
+         }
+      })
+
+      res.json(200).json({message:'The Day is Deleted'})
+   }catch(error){
+      res.status(400).json({message:"Something went wrong while deleting the day"})
+   }
+}
 const createBreakfast=async(req:Request,res:Response)=>{
     try{
       
@@ -167,55 +250,67 @@ const createDinner=async(req:Request,res:Response)=>{
 
 const updateBreakfast=async(req:Request,res:Response)=>{
    try{
-      const {Title,contents,authorID,BreakfastID}=req.body;
 
-      if(!authorID||!BreakfastID){
-          return res.status(401).json({message:"Insufficient Data"})
+      const {userID,DayID,mealID,generateType,contents,Title} = req.body;
+      
+      if(!userID||!DayID||!mealID||!generateType){
+         return res.send(404).json({message:"Insufficient Data"});
       }
 
-      const user=await prisma.user.findFirst({
-         where:{
-            id:parseInt(authorID)
-         }
+      const user = await prisma.user.findFirst({
+        where:{
+            id:parseInt(userID)
+        }
       })
 
       if(!user){
-          return res.status(401).json({message:"User not found"})
+         return res.send(404).json({message:"User not found"})
       }
 
-      const isday=await prisma.day.findFirst({
-         where:{
-            authorID:parseInt(authorID)
-         }
+      const day= await prisma.day.findFirst({
+        where:{
+            id:parseInt(DayID)
+        }
+      });
+
+      if(!day){
+         return res.json(404).json({message:"day not found"})
+      }
+
+      const mealTime=await prisma.breakfastData.findFirst({
+        where:{
+            id:parseInt(mealID)
+        }
       })
 
-      if(!isday){
-          return res.status(401).json({message:"Day Does not exist"})
+      if(!mealTime){
+         return res.status(404).json({message:"This meal has not been created yet"})
       }
-      
+
       if(Title){
-         const updateBreakfast=await prisma.breakfastData.update({
+        const updatecontents=await prisma.breakfastData.update({
             where:{
-               id:parseInt(BreakfastID)
+                id:parseInt(mealID)
             },
             data:{
-               Title:Title,
+                Title:Title
             }
-         })
+        })
       }
 
       if(contents){
-         const updateBreakfast=await prisma.breakfastData.update({
+        const updatecontents=await prisma.breakfastData.update({
             where:{
-               id:parseInt(BreakfastID)
+                id:parseInt(mealID)
             },
             data:{
-               contents:contents,
+                contents:contents
             }
-         })
+        })
       }
-
-      res.status(200).json({message:"The Breakfast is updated"});
+      
+    
+      res.status(200).json({message:"The breakfast has been updated"})
       
    }catch(error){
       res.status(400).json({message:"Somthing went wrong while wrong while updating the breakfast"})
@@ -224,55 +319,67 @@ const updateBreakfast=async(req:Request,res:Response)=>{
 
 const updateLunch=async(req:Request,res:Response)=>{
    try{
-      const {Title,contents,authorID,LunchID}=req.body;
-
-      if(!authorID||!LunchID){
-          return res.status(401).json({message:"Insufficient Data"})
+      const {userID,DayID,mealID,generateType,contents,Title} = req.body;
+      
+      if(!userID||!DayID||!mealID||!generateType){
+         return res.send(404).json({message:"Insufficient Data"});
       }
 
-      const user=await prisma.user.findFirst({
-         where:{
-            id:parseInt(authorID)
-         }
+      const user = await prisma.user.findFirst({
+        where:{
+            id:parseInt(userID)
+        }
       })
 
       if(!user){
-          return res.status(401).json({message:"User not found"})
+         return res.send(404).json({message:"User not found"})
       }
 
-      const isday=await prisma.day.findFirst({
-         where:{
-            authorID:parseInt(authorID)
-         }
+      const day= await prisma.day.findFirst({
+        where:{
+            id:parseInt(DayID)
+        }
+      });
+
+      if(!day){
+         return res.json(404).json({message:"day not found"})
+      }
+
+      const mealTime=await prisma.lunchData.findFirst({
+        where:{
+            id:parseInt(mealID)
+        }
       })
 
-      if(!isday){
-          return res.status(401).json({message:"Day Does not exist"})
+      if(!mealTime){
+         return res.status(404).json({message:"This meal has not been created yet"})
       }
-      
+
       if(Title){
-         const updateLunch=await prisma.lunchData.update({
+        const updatecontents=await prisma.lunchData.update({
             where:{
-               id:parseInt(LunchID)
+                id:parseInt(mealID)
             },
             data:{
-               Title:Title,
+                Title:Title
             }
-         })
+        })
       }
 
       if(contents){
-         const updateLunch=await prisma.lunchData.update({
+        const updatecontents=await prisma.lunchData.update({
             where:{
-               id:parseInt(LunchID)
+                id:parseInt(mealID)
             },
             data:{
-               contents:contents,
+                contents:contents
             }
-         })
+        })
       }
+      
+    
+      res.status(200).json({message:"The lunch has been updated"})
 
-      res.status(200).json({message:"The Lunch is updated"});
       
    }catch(error){
       res.status(400).json({message:"Somthing went wrong while wrong while updating the Lunch"})
@@ -281,55 +388,66 @@ const updateLunch=async(req:Request,res:Response)=>{
 
 const updateDinner=async(req:Request,res:Response)=>{
    try{
-      const {Title,contents,authorID,DinnerID}=req.body;
-
-      if(!authorID||!DinnerID){
-          return res.status(401).json({message:"Insufficient Data"})
+      const {userID,DayID,mealID,generateType,contents,Title} = req.body;
+      
+      if(!userID||!DayID||!mealID||!generateType){
+         return res.send(404).json({message:"Insufficient Data"});
       }
 
-      const user=await prisma.user.findFirst({
-         where:{
-            id:parseInt(authorID)
-         }
+      const user = await prisma.user.findFirst({
+        where:{
+            id:parseInt(userID)
+        }
       })
 
       if(!user){
-          return res.status(401).json({message:"User not found"})
+         return res.send(404).json({message:"User not found"})
       }
 
-      const isday=await prisma.day.findFirst({
-         where:{
-            authorID:parseInt(authorID)
-         }
+      const day= await prisma.day.findFirst({
+        where:{
+            id:parseInt(DayID)
+        }
+      });
+
+      if(!day){
+         return res.json(404).json({message:"day not found"})
+      }
+
+      const mealTime=await prisma.dinnerData.findFirst({
+        where:{
+            id:parseInt(mealID)
+        }
       })
 
-      if(!isday){
-          return res.status(401).json({message:"Day Does not exist"})
+      if(!mealTime){
+         return res.status(404).json({message:"This meal has not been created yet"})
       }
-      
+
       if(Title){
-         const updateDinner=await prisma.dinnerData.update({
+        const updatecontents=await prisma.dinnerData.update({
             where:{
-               id:parseInt(DinnerID)
+                id:parseInt(mealID)
             },
             data:{
-               Title:Title,
+                Title:Title
             }
-         })
+        })
       }
 
       if(contents){
-         const updateDinner=await prisma.dinnerData.update({
+        const updatecontents=await prisma.dinnerData.update({
             where:{
-               id:parseInt(DinnerID)
+                id:parseInt(mealID)
             },
             data:{
-               contents:contents,
+                contents:contents
             }
-         })
+        })
       }
-
-      res.status(200).json({message:"The Dinner is updated"});
+      
+    
+      res.status(200).json({message:"The dinner has been updated"})
       
    }catch(error){
       res.status(400).json({message:"Somthing went wrong while wrong while updating the Dinner"})
@@ -457,7 +575,9 @@ const deleteDinner=async(req:Request,res:Response)=>{
 }
 
 export {
-    createMeal,
+    createDay,
+    updateday,
+    deleteDay,
     createBreakfast,
     createDinner,
     createLunch,

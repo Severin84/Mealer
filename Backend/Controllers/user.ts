@@ -4,6 +4,7 @@ import {User,userInput,loginUser} from "../models/user";
 import {PrismaClient} from "@prisma/client"
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import { IUserRequest } from "../middleware/Requesttypes";
 
 const prisma=new PrismaClient()
 
@@ -124,18 +125,55 @@ const loginUser=async(req:Request,res:Response)=>{
            return res.status(401).json({message:"Email or Password is Incorrect"})
        }
       
+       
        const {accessToken,refreshToken}=await generateAccessandRefreshToken(isUser.id);
       
+
+       const login=await prisma.user.update({
+         where:{
+            email:email
+         },
+         data:{
+            isLoggedIn:true
+         }
+       })
+
+
        res.cookie('refreshToken',refreshToken,{httpOnly:true,secure:true});
-     
+       res.cookie('accessToken',accessToken,{httpOnly:true,secure:true})
        res.status(200).json({accessToken:accessToken});
     }catch(error){
         res.status(400).json({message:"something went wrong while login the user"})
     }
 }
 
-const logOut=(req:Request,res:Response)=>{
+const logOut=async(req:IUserRequest,res:Response)=>{
     try{
+       const token:string=req.cookies?.refreshToken;
+
+      if(token){
+         const user=await prisma.user.findFirst({
+            where:{
+               referanceToken:token
+            }
+          })
+
+         if(user){
+            const changeloginstatue=await prisma.user.update({
+               where:{
+                  id:user.id
+               },
+               data:{
+                  isLoggedIn:false
+               }
+            })
+         }else{
+            res.status(404).json({message:"user not found"})
+         }
+      }else{
+          res.status(404).json({message:"Something went wrong while logging out the user"})
+      }
+    
        res.clearCookie('accessToken');
        res.clearCookie('refreshToken');
        res.clearCookie('Token');
