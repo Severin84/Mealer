@@ -8,7 +8,7 @@ const createDay=async(req:Request,res:Response)=>{
        const {day,authorID}=req.body
 
        if(!day||!authorID){
-          return res.send(404).json({message:"Insufficient data"})
+          return res.send(400).json({message:"Insufficient data"})
        }
     
        const isUser=await prisma.user.findUnique({
@@ -18,7 +18,7 @@ const createDay=async(req:Request,res:Response)=>{
        })
 
        if(!isUser){
-          return res.status(401).json({message:"User does not exist"});
+          return res.status(404).json({message:"User does not exist"});
        }
 
        const newDay=await prisma.day.create({
@@ -27,9 +27,9 @@ const createDay=async(req:Request,res:Response)=>{
          }
        })
 
-       res.status(200).json({message:"The Day is created"});
+       res.status(200).json({data:newDay});
     }catch(error){
-        res.status(400).json({message:error})
+        res.status(405).json({message:"Something went wrong while Creating the day"})
     }
 }
 
@@ -38,7 +38,7 @@ const updateday=async(req:Request,res:Response)=>{
      const {authorID,DayID,day}=req.body;
 
      if(!authorID||!DayID||!day){
-       res.status(401).json({message:"Insufficient Data"});
+       res.status(400).json({message:"Insufficient Data"});
      }
 
      const user=await prisma.user.findFirst({
@@ -70,10 +70,10 @@ const updateday=async(req:Request,res:Response)=>{
       }
      })
 
-     res.status(200).json({message:"Your day has been updated"})
+     res.status(200).json({data:updateDay})
 
   }catch(error){
-     res.status(400).json({message:"Something went wrong while updating the day"})
+     res.status(405).json({message:"Something went wrong while updating the day"})
   }
 }
 
@@ -83,7 +83,7 @@ const deleteDay=async(req:Request,res:Response)=>{
       const {authorID,DayId}=req.body;
       
       if(!authorID||!DayId){
-          res.status(401).json({message:"Insufficient Data"})
+          res.status(400).json({message:"Insufficient Data"})
       }
 
       const isUser=await prisma.user.findFirst({
@@ -112,18 +112,19 @@ const deleteDay=async(req:Request,res:Response)=>{
          }
       })
 
-      res.json(200).json({message:'The Day is Deleted'})
+      res.json(200).json({data:deleteDay})
    }catch(error){
-      res.status(400).json({message:"Something went wrong while deleting the day"})
+      res.status(405).json({message:"Something went wrong while deleting the day"})
    }
 }
+
 const createBreakfast=async(req:Request,res:Response)=>{
     try{
       
-      const {Title,contents,authorID,MealType}=req.body;
+      const {Title,contents,authorID,MealType,dayID}=req.body;
       
-      if(!Title||!contents||!authorID||!MealType){
-        return res.status(401).json({message:"More data is required"})
+      if(!Title||!contents||!authorID||!MealType||!dayID){
+        return res.status(400).json({message:"More data is required"})
       }
     
       const user = await prisma.user.findUnique({
@@ -133,12 +134,12 @@ const createBreakfast=async(req:Request,res:Response)=>{
       })
      
       if(!user){
-         return res.status(401).json({message:"user does not exist"})
+         return res.status(404).json({message:"user does not exist"})
       }
       
       const checkDay=await prisma.day.findFirst({
          where:{
-            authorID:parseInt(authorID)
+            id:parseInt(dayID)
          }
       })
 
@@ -151,23 +152,23 @@ const createBreakfast=async(req:Request,res:Response)=>{
             Title:Title,
             contents:contents,
             MealType:MealType,
-            authorID:checkDay.id
+            authorID:user.id,
+            dayID:checkDay.id
          }
       })
       
-      res.status(200).json({message:"Your Breakfast is created"})
-
+      res.status(200).json({data:updateUser})
     }catch(error){
-        res.status(400).json({message:error})
+        res.status(405).json({message:error})
     }
 }
 
 const createLunch=async(req:Request,res:Response)=>{
   try{
-      const {Title,contents,MealType,authorID}=req.body;
+      const {Title,contents,MealType,authorID,dayID}=req.body;
 
       if(!Title||!contents||!MealType||!authorID){
-         return res.status(401).json({message:"Insufficent Data"});
+         return res.status(400).json({message:"Insufficent Data"});
       }
 
       const user = await prisma.user.findUnique({
@@ -177,12 +178,12 @@ const createLunch=async(req:Request,res:Response)=>{
       })
 
       if(!user){
-         return res.status(401).json({message:"user does not exist"})
+         return res.status(404).json({message:"user does not exist"})
       }
 
       const checkDay=await prisma.day.findFirst({
          where:{
-            authorID:parseInt(authorID)
+            id:parseInt(dayID)
          }
       })
 
@@ -195,22 +196,23 @@ const createLunch=async(req:Request,res:Response)=>{
             Title:Title,
             contents:contents,
             MealType:MealType,
-            authorID:checkDay.id
+            authorID:user.id,
+            dayID:checkDay.id
         }
      })
 
-     res.status(200).json({message:"Your Lunch is created"})      
+     res.status(200).json({data:updateLunch})      
   }catch(error){
-    res.status(400).json({message:"Something went wrong while creating the Lunch"})
+    res.status(405).json({message:"Something went wrong while creating the Lunch"})
   }
 }
 
 const createDinner=async(req:Request,res:Response)=>{
   try{
-    const {Title,contents,MealType,authorID}=req.body;
+    const {Title,contents,MealType,authorID,dayID}=req.body;
 
     if(!Title||!contents||!MealType||!authorID){
-       return res.status(401).json({message:"Insufficent Data"});
+       return res.status(400).json({message:"Insufficent Data"});
     }
 
     const user = await prisma.user.findUnique({
@@ -220,12 +222,12 @@ const createDinner=async(req:Request,res:Response)=>{
     })
 
     if(!user){
-       return res.status(401).json({message:"user does not exist"})
+       return res.status(404).json({message:"user does not exist"})
     }
 
     const checkDay=await prisma.day.findFirst({
       where:{
-         authorID:parseInt(authorID)
+         id:parseInt(dayID)
       }
    })
 
@@ -238,28 +240,28 @@ const createDinner=async(req:Request,res:Response)=>{
           Title:Title,
           contents:contents,
           MealType:MealType,
-          authorID:checkDay.id
+          authorID:user.id,
+          dayID:checkDay.id
       }
    })
 
-   res.status(200).json({message:"Your Dinner is created"})
+   res.status(200).json({data:updateDinnerData})
   }catch(error){
-    return res.send(400).json({message:"Something went wrong while creating the Dinner"})
+    return res.send(405).json({message:"Something went wrong while creating the Dinner"})
   }
 }
 
 const updateBreakfast=async(req:Request,res:Response)=>{
    try{
-
-      const {userID,DayID,mealID,generateType,contents,Title} = req.body;
+      const {authorID,DayID,mealID,contents,Title} = req.body;
       
-      if(!userID||!DayID||!mealID||!generateType){
-         return res.send(404).json({message:"Insufficient Data"});
+      if(!authorID||!DayID||!mealID){
+         return res.send(400).json({message:"Insufficient Data"});
       }
 
       const user = await prisma.user.findFirst({
         where:{
-            id:parseInt(userID)
+            id:parseInt(authorID)
         }
       })
 
@@ -309,25 +311,23 @@ const updateBreakfast=async(req:Request,res:Response)=>{
         })
       }
       
-    
       res.status(200).json({message:"The breakfast has been updated"})
-      
    }catch(error){
-      res.status(400).json({message:"Somthing went wrong while wrong while updating the breakfast"})
+      res.status(405).json({message:"Somthing went wrong while wrong while updating the breakfast"})
    }
 }
 
 const updateLunch=async(req:Request,res:Response)=>{
    try{
-      const {userID,DayID,mealID,generateType,contents,Title} = req.body;
+      const {authorID,DayID,mealID,contents,Title} = req.body;
       
-      if(!userID||!DayID||!mealID||!generateType){
-         return res.send(404).json({message:"Insufficient Data"});
+      if(!authorID||!DayID||!mealID){
+         return res.send(400).json({message:"Insufficient Data"});
       }
 
       const user = await prisma.user.findFirst({
         where:{
-            id:parseInt(userID)
+            id:parseInt(authorID)
         }
       })
 
@@ -379,24 +379,22 @@ const updateLunch=async(req:Request,res:Response)=>{
       
     
       res.status(200).json({message:"The lunch has been updated"})
-
-      
    }catch(error){
-      res.status(400).json({message:"Somthing went wrong while wrong while updating the Lunch"})
+      res.status(405).json({message:"Somthing went wrong while wrong while updating the Lunch"})
    }
 }
 
 const updateDinner=async(req:Request,res:Response)=>{
    try{
-      const {userID,DayID,mealID,generateType,contents,Title} = req.body;
+      const {authorID,DayID,mealID,contents,Title} = req.body;
       
-      if(!userID||!DayID||!mealID||!generateType){
-         return res.send(404).json({message:"Insufficient Data"});
+      if(!authorID||!DayID||!mealID){
+         return res.send(400).json({message:"Insufficient Data"});
       }
 
       const user = await prisma.user.findFirst({
         where:{
-            id:parseInt(userID)
+            id:parseInt(authorID)
         }
       })
 
@@ -446,19 +444,17 @@ const updateDinner=async(req:Request,res:Response)=>{
         })
       }
       
-    
       res.status(200).json({message:"The dinner has been updated"})
-      
    }catch(error){
-      res.status(400).json({message:"Somthing went wrong while wrong while updating the Dinner"})
+      res.status(405).json({message:"Somthing went wrong while wrong while updating the Dinner"})
    }
 }
 
 const deleteBreakfast=async(req:Request,res:Response)=>{
    try{
-      const {authorID,mealID}=req.body
+      const {authorID,dayID,mealID}=req.body
       
-      if(!authorID||!mealID){
+      if(!authorID||!mealID||dayID){
           return res.status(400).json({message:"Insufficient Data"})
       }
 
@@ -472,9 +468,19 @@ const deleteBreakfast=async(req:Request,res:Response)=>{
           return res.status(404).json({message:"User not find"})
       }
 
+      const isDay=await prisma.day.findFirst({
+         where:{
+            id:parseInt(dayID)
+         }
+      })
+
+      if(!isDay){
+          res.status(404).json({message:"Day Does not exist"})
+      }
+
       const breakfast=await prisma.breakfastData.findFirst({
          where:{
-            id:parseInt(authorID)
+            id:parseInt(mealID)
          }
       })
 
@@ -490,15 +496,15 @@ const deleteBreakfast=async(req:Request,res:Response)=>{
 
       res.status(200).json({message:"Meal Deleted"})
    }catch(error){
-      res.status(401).json({message:"Something went wrong while deleting the breakfast"})
+      res.status(405).json({message:"Something went wrong while deleting the breakfast"})
    }
 }
 
 const deleteLunch=async(req:Request,res:Response)=>{
    try{
-      const {authorID,mealID}=req.body
+      const {authorID,mealID,dayID}=req.body
       
-      if(!authorID||!mealID){
+      if(!authorID||!mealID||!dayID){
           return res.status(400).json({message:"Insufficient Data"})
       }
 
@@ -512,9 +518,19 @@ const deleteLunch=async(req:Request,res:Response)=>{
           return res.status(404).json({message:"User not find"})
       }
 
+      const isDay=await prisma.day.findFirst({
+         where:{
+            id:parseInt(dayID)
+         }
+      })
+
+      if(!isDay){
+         res.status(404).json({message:"Day Does not exist"})
+      }
+
       const Lunch=await prisma.lunchData.findFirst({
          where:{
-            id:parseInt(authorID)
+            id:parseInt(mealID)
          }
       })
 
@@ -530,15 +546,15 @@ const deleteLunch=async(req:Request,res:Response)=>{
 
       res.status(200).json({message:"Meal Deleted"})
    }catch(error){
-      res.status(401).json({message:"Something went wrong while deleting the Lunch"})
+      res.status(405).json({message:"Something went wrong while deleting the Lunch"})
    }
 }
 
 const deleteDinner=async(req:Request,res:Response)=>{
    try{
-      const {authorID,mealID}=req.body
+      const {authorID,mealID,dayID}=req.body
       
-      if(!authorID||!mealID){
+      if(!authorID||!mealID||!dayID){
           return res.status(400).json({message:"Insufficient Data"})
       }
 
@@ -551,10 +567,20 @@ const deleteDinner=async(req:Request,res:Response)=>{
       if(!user){
           return res.status(404).json({message:"User not find"})
       }
+      
+      const isDay=await prisma.day.findFirst({
+         where:{
+            id:parseInt(dayID)
+         }
+      })
+
+      if(!isDay){
+         res.status(404).json({message:"Day Does not exist"})
+      }
 
       const Dinner=await prisma.dinnerData.findFirst({
          where:{
-            id:parseInt(authorID)
+            id:parseInt(mealID)
          }
       })
 
@@ -570,7 +596,7 @@ const deleteDinner=async(req:Request,res:Response)=>{
 
       res.status(200).json({message:"Meal Deleted"})
    }catch(error){
-      res.status(401).json({message:"Something went wrong while deleting the Dinner"})
+      res.status(405).json({message:"Something went wrong while deleting the Dinner"})
    }
 }
 

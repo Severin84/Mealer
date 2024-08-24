@@ -5,16 +5,16 @@ import verifyJWT from "../middleware/verifyUser";
 const router=express.Router();
 
 router.post('/createDay',verifyJWT,createDay);
-router.post("/updateDay",verifyJWT,updateday);
-router.post("/deleteDay",verifyJWT,deleteDay)
+router.patch("/updateDay",verifyJWT,updateday);
+router.delete("/deleteDay",verifyJWT,deleteDay)
 router.post("/createbreakfast",verifyJWT,createBreakfast);
 router.post("/createlunch",verifyJWT,createLunch);
 router.post("/createdinner",verifyJWT,createDinner);
-router.post("/updatebreakfast",verifyJWT,updateBreakfast);
-router.post("/updatelunch",verifyJWT,updateLunch);
-router.post("/updatedinner",verifyJWT,updateDinner);
-router.post("/deletebreakfast",verifyJWT,deleteBreakfast);
-router.post("/deletelunch",verifyJWT,deleteLunch);
-router.post("/deletedinner",verifyJWT,deleteDinner);
+router.patch("/updatebreakfast",verifyJWT,updateBreakfast);
+router.patch("/updatelunch",verifyJWT,updateLunch);
+router.patch("/updatedinner",verifyJWT,updateDinner);
+router.delete("/deletebreakfast",verifyJWT,deleteBreakfast);
+router.delete("/deletelunch",verifyJWT,deleteLunch);
+router.delete("/deletedinner",verifyJWT,deleteDinner);
 
 export default router

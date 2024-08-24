@@ -57,9 +57,7 @@ const generateAccessandRefreshToken=async(userID)=>{
 }
 
 const createUser=async(req:Request,res:Response)=>{
-   
     try{
-     
        const {name,email,password}=req.body;
        
        if(!name||!email||!password){
@@ -75,7 +73,7 @@ const createUser=async(req:Request,res:Response)=>{
        );
     
        if(user){
-         return res.status(400).json({message:"Either Username or Email already exist"})
+         return res.status(409).json({message:"Either Username or Email already exist"})
        }
        
        const userInput:userInput={
@@ -90,7 +88,7 @@ const createUser=async(req:Request,res:Response)=>{
        res.status(200).json({message:"User Created"});
 
     }catch(error){
-       res.status(400).json({message:"Something went wrong while registering the user"})
+       res.status(405).json({message:"Something went wrong while registering the user"})
     }
 }
 
@@ -122,7 +120,7 @@ const loginUser=async(req:Request,res:Response)=>{
        const PasswordCheck=await isPasswordCorrect(password,isUser.password)
       
        if(!PasswordCheck){
-           return res.status(401).json({message:"Email or Password is Incorrect"})
+           return res.status(404).json({message:"Email or Password is Incorrect"})
        }
       
        
@@ -141,9 +139,9 @@ const loginUser=async(req:Request,res:Response)=>{
 
        res.cookie('refreshToken',refreshToken,{httpOnly:true,secure:true});
        res.cookie('accessToken',accessToken,{httpOnly:true,secure:true})
-       res.status(200).json({accessToken:accessToken});
+       res.status(200).json({data:login});
     }catch(error){
-        res.status(400).json({message:"something went wrong while login the user"})
+        res.status(405).json({message:"something went wrong while login the user"})
     }
 }
 
@@ -171,7 +169,7 @@ const logOut=async(req:IUserRequest,res:Response)=>{
             res.status(404).json({message:"user not found"})
          }
       }else{
-          res.status(404).json({message:"Something went wrong while logging out the user"})
+          res.status(405).json({message:"Something went wrong while logging out the user"})
       }
     
        res.clearCookie('accessToken');
@@ -179,12 +177,9 @@ const logOut=async(req:IUserRequest,res:Response)=>{
        res.clearCookie('Token');
        res.status(200).json({message:"User Logged out"})
     }catch(error){
-        res.status(400).json({message:"something went wrong while loginOut"})
+        res.status(405).json({message:"something went wrong while loginOut"})
     }
 }
-
-
-
 
 
 export {
