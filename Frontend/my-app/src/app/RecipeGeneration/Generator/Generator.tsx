@@ -1,4 +1,4 @@
-//FineGraninner : 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
+
 import {HfInference} from "@huggingface/inference"
 
 const Generator =async(ingredients:string) => {
