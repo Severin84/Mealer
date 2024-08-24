@@ -1,0 +1,42 @@
+.MessDashboard{
+    background-color: darksalmon;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+}
+
+.MessDashboard-asideDiv{
+    background-color: aqua;
+    height: inherit;
+    width: 15%;
+}
+
+.MessDashboard-MainDiv{
+    background-color: cadetblue;
+    height: inherit;
+    width: 85%;
+}
+
+/* .MessDashboard-MainBox{
+    margin-top: 4rem;
+    height: 44rem;
+    width: 80rem;
+    background-color: azure;
+} */
+
+.MessDashboard-HeadingDiv{
+    background-color: burlywood;
+    width: 90%;
+    height:4rem;
+    display: flex;
+    justify-content: space-between;
+    margin-left: 4rem;
+}
+
+.MessDashboard-ContentDiv{
+    background-color: blanchedalmond;
+    margin-top: 2.5rem;
+    height: 38rem;
+    width: 95%;
+    margin-left: 2rem;
+}
