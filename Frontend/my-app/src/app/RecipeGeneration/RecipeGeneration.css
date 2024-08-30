@@ -7,8 +7,11 @@
 
 .RecipePage-asideDiv{
     height:inherit;
-    width: 15%;
+    width: 13%;
     background-color: bisque;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .RecipePage-MainDiv{
@@ -31,45 +34,25 @@
 
 .RecipePage-MainDiv-Content-Messages{
     background-color:chartreuse;
+    min-height: fit-content;
+    max-height:39rem;
     height:39rem;
     width: 69rem;
     overflow-y: scroll;  
 }
-
-/* .RecipePage-MainDiv-Content-Messages::-webkit-scrollbar{
-    display: none;
-} */
-
-.RecipePage-MainDiv-Input{
-    background-color: deepskyblue;
-    width: 70rem;
-    height: 5rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.RecipePage-MainDiv-Content-Message{
+    background-color:chartreuse;
+    min-height: fit-content;
+    max-height:39rem;
+    height:auto;
+    width: 69rem;
+    margin-top: 35rem;
 }
 
-.RecipePage-MainDiv-Input-textarea > textarea{
-    margin-top: 0.4rem;
-    border-radius: 0.5rem;
-}
-
-.RecipePage-MainDiv-Input-Binder{
-    display: flex;
-    gap: 1rem;
-}
-
-.RecipePage-MainDiv-Input-Button > button{
-  width: 7rem;
-  height: 4rem;
-  background-color: bisque;
-  border-radius: 0.5rem;
-  margin-top: 0.65rem;
-}
-
-
-.RecipePage-MainDiv-Content-Messages-Client-true{
-  min-width:fit-content;
+.RecipePage-MainDiv-Content-Messages-ClientDiv-true{
+    margin-top: 0.5rem;
+    background-color: aqua;
+    min-width:fit-content;
   min-height: 2rem;
   max-width: 40rem;
   max-height: 5rem;
@@ -81,7 +64,6 @@
   border-radius: 0.5rem ;
   float: right;
   clear: both;
-  background-color: aqua;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -90,7 +72,9 @@
   margin-bottom: 1rem;
 }
 
-.RecipePage-MainDiv-Content-Messages-Client-false{
+.RecipePage-MainDiv-Content-Messages-ClientDiv-false{
+    margin-top: 0.5rem;
+    background-color: aqua;
     min-width:25rem;
     min-height: 2rem;
     max-width: 50rem;
@@ -103,7 +87,6 @@
     border-radius: 0.5rem ;
     float: left;
     clear: both;
-    background-color: aqua;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -112,5 +95,108 @@
     margin-bottom: 1rem;
 }
 
+.RecipePage-MainDiv-Input{
+    background-color: deepskyblue;
+    width: 70rem;
+    height: 5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
 
+
+.RecipePage-MainDiv-Input-textarea > textarea{
+    margin-top: 0.4rem;
+    border-radius: 0.5rem;
+}
+
+.RecipePage-MainDiv-Input-Binder{
+    display: flex;
+    gap: 1rem;
+}
+
+
+
+.RecipePage-MainDiv-Input-Button > button{
+  width: 7rem;
+  height: 4rem;
+  background-color: bisque;
+  border-radius: 0.5rem;
+  margin-top: 0.65rem;
+
+}
+
+
+.RecipePage-MainDiv-Content-Messages-Client-true{
+  /* min-width:fit-content;
+  min-height: 2rem;
+  max-width: 40rem;
+  max-height: 5rem;
+  width: auto;
+  height: auto;
+  overflow-wrap: break-word;
+  word-break:  break-word;
+  overflow: hidden;
+  border-radius: 0.5rem ;
+  float: right;
+  clear: both;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 1rem;
+  padding: 0.5rem;
+  margin-bottom: 1rem; */
+}
+
+.RecipePage-MainDiv-Content-Messages-Client-false{
+    /* min-width:25rem;
+    min-height: 2rem;
+    max-width: 50rem;
+    max-height: fit-content;
+    width: auto;
+    height: auto;
+    overflow-wrap: break-word;
+    word-break:  break-word;
+    overflow: hidden;
+    border-radius: 0.5rem ;
+    float: left;
+    clear: both;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 1rem;
+    padding: 0.5rem;
+    margin-bottom: 1rem; */
+}
+
+.Recipe-bookmark{
+ margin-left: -0.5rem;
+ height: 5rem;
+ width: 5rem;
+ background-color: chartreuse;
+ border-radius: 3rem;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+}
+
+.saveRecipeTitle{
+    margin-top: -30rem;
+    margin-left: 40rem;
+    /* z-index: 99999rem; */
+    font-size: 2rem;
+    display: flex;
+    /* background-color:whitesmoke; */
+}
+
+.saveRecipeTitle > input {
+    bottom: 0.3rem;
+    padding: 0.2rem;
+}
+
+.saveRecipeTitleDiv{
+    width: 15rem;
+    height: 5rem;
+    background-color:rgb(240, 240, 240);
+}

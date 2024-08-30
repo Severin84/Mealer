@@ -1,0 +1,37 @@
+.DayPlanner_PopUp_Div{
+    width: 30rem;
+    height: 20rem;
+    background-color: goldenrod;
+}
+
+.DayPlanner_PopUp_Input{
+    padding-top: 2rem;
+    padding-left: 5rem;
+}
+
+.DayPlanner_PopUp_DropDowns{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5rem;
+    padding-top: 2rem;
+}
+
+.Meal_Type,.Recipe{
+    width: 6rem;
+    height: 2.5rem;
+    background-color: rgb(220, 217, 217);
+}
+
+.DayPlanner_PopUp_SubmitButton{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 2rem;
+}
+
+.DayPlanner_PopUp_SubmitButton > Button {
+    background-color: aliceblue;
+    width: 5rem;
+    padding-top: 2rem;
+}

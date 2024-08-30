@@ -1,0 +1,24 @@
+.CalenderComp-Div{
+    height: 40rem;
+    width: 60rem;
+    background-color: bisque;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+.CalenderComp{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+.Calender{
+  /* width: inherit;
+  height: inherit;
+  background-color: chartreuse; */
+  /* background-color: #f7fafc;
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); */
+} 

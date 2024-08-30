@@ -1,0 +1,58 @@
+.RecipeSidebar{
+   margin-top: 1rem;
+   margin-bottom: 1rem;
+   background-color: cornflowerblue;
+   height: 47rem;
+   width: 12rem;
+}
+
+.RecipeSidebar-top-Content{
+   height: 4rem;
+   background-color: burlywood;
+   width: inherit;
+}
+
+.RecipeSidebar-mid-Content{
+  background-color: darkgreen;
+  width: inherit;
+  height: 40rem;
+  overflow-y: scroll;
+}
+
+
+.RecipeSidebar-lower-Content{
+  background-color: cornflowerblue;
+  height: 1rem;
+  bottom: 0;
+}
+
+.savedTitleDiv{
+  width:inherit;
+  height: 1.5rem;
+  background-color: coral;
+  border-radius: 0.3rem;
+  overflow:hidden;
+  cursor: pointer;
+  margin:0.1rem;
+}
+
+.savedTitles{
+  margin-top: 0.5rem;
+}
+
+.RecipeBar-close{
+  font-size: 1.1rem;
+  margin-left: 10rem;
+}
+
+.RecipeBar-profile{
+  font-size: 1.3rem;
+  margin-left: 10rem;
+  margin-top: 1rem;
+}
+
+.RecipeSidebar-setting{
+  font-size: 1.3rem;
+  margin-left: 10rem;
+  margin-top: 1rem;
+}

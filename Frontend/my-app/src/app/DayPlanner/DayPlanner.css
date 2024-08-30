@@ -1,0 +1,76 @@
+
+.MessDashboard-HeadingDiv{
+    background-color: burlywood;
+    width: 90%;
+    height:4rem;
+    display: flex;
+    justify-content: space-between;
+    margin-left: 4rem;
+}
+
+.MessDashboard-ContentDiv{
+    background-color: blanchedalmond;
+    margin-top: 2.5rem;
+    height: 38rem;
+    width: 95%;
+    margin-left: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.MessDashboard-Heading-Date-Title-Div,.MessDashboard-Heading-Add-Button-Div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+}
+
+.MessDashboard-card{
+    display: flex;
+    width: 70rem;
+    background-color: chartreuse;
+    justify-content: space-between;
+    height: 2.5rem;
+    margin:1rem;
+}
+
+.MessDashboard-Content{
+    height: inherit;
+    width: 75rem;
+    overflow-y: scroll;
+}
+
+.ItemTitle{
+    width: 40%;
+    height: inherit;
+    background-color: chocolate;
+}
+
+.ItemTitle > span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 0.5rem;
+}
+
+.ItemUtils{
+    display: flex;
+    width: 60%;
+    background-color: cadetblue;
+    justify-content: space-between;
+    padding-left: 3rem;
+    padding-right: 8rem;
+    padding-top: 0.5rem;
+}
+
+.cardTrash{
+    width: 5rem;
+    background-color: cornflowerblue;
+}
+
+.cardTrash{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
