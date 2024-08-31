@@ -1,0 +1,24 @@
+.savedRecipeDiv{
+    height: 99vh;
+    width: 85rem;
+    background-color: azure;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.savedRecipe{
+    height: 45rem;
+    width: 80rem;
+    background-color: aquamarine;
+    overflow-y: scroll;
+}
+.savedRecipeItems{
+    margin:1rem;
+}
+.savedRecipeItem{
+    width: 15rem;
+    height: 10rem;
+    background-color: chocolate;
+    border-radius: 0.5rem;
+    margin:1rem
+}
