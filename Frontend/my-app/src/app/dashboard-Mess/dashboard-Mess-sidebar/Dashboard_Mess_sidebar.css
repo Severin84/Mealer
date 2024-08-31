@@ -1,0 +1,166 @@
+.MessSidebar{
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    background-color: cornflowerblue;
+    height: 47rem;
+    width: 10rem;
+}
+
+.shrinkedMessSidebar{
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  background-color: rgb(122, 120, 4);
+  height: 47rem;
+  width: 3rem;
+}
+
+.MessSidebar-top-Content{
+    height: 4rem;
+    background-color: burlywood;
+    width: inherit;
+}
+
+.shrinkedMessSidebar-top-Content{
+    height: 4rem;
+    background-color: burlywood;
+    width: inherit;
+}
+
+.MessBar-close{
+    padding-top: 0.3rem;
+    font-size: 1.1rem;
+    margin-left: 8rem;
+    cursor: pointer;
+}
+
+.shrinkedMessBar-close{
+    padding-top: 0.3rem;
+    font-size: 1.1rem;
+    margin-left:1rem;
+    cursor: pointer;
+}
+
+.Mess-profile{
+    font-size: 1.3rem;
+    margin-left: 8rem;
+    margin-top: 1rem;
+}
+
+.shrinkedMessBar-profile{
+    font-size: 1.3rem;
+    margin-left: 1rem;
+    margin-top: 1rem;
+}
+
+.MessBar-content{
+    background-color: darkgreen;
+    width: inherit;
+    height: 40rem;
+}
+
+.MessBar-content-calendar,.MessBar-content-schedule,.MessBar-content-bookmark{
+    font-size: 1.2rem;
+    /* margin-left: 12rem; */
+    padding-top: 1rem;
+    cursor: pointer;
+}
+
+.MessBar-lower-content{
+    background-color: rgb(99, 142, 222);
+    height: 1rem;
+    bottom: 0;
+}
+
+.messbar-setting{
+    font-size: 1.3rem;
+    margin-left: 8rem;
+    margin-top: 0.8rem;
+}
+
+.shrinkedMessBar-content{
+    background-color: darkgreen;
+    width: inherit;
+    height: 40rem;
+}
+
+.shrinkedMessBar-content-calendar{
+    font-size: 1.3rem;
+    margin-left: 1rem;
+    padding-top: 1rem;
+    cursor: pointer;
+}
+
+.shrinkedMessBar-content-schedule{
+    font-size: 1.3rem;
+    margin-left: 1rem;
+    padding-top: 1rem;
+    cursor: pointer;
+} 
+
+.shrinkedMessBar-content-bookmark{
+    font-size: 1.3rem;
+    margin-left: 1rem;
+    padding-top: 1rem;
+    cursor: pointer;
+}
+
+.shrinkedMessBar-lower-content{
+    background-color: cornflowerblue;
+    height: 1rem;
+    bottom: 0;
+}
+
+.shrinkedmessbar-setting{
+    font-size: 1.3rem;
+    margin-left: 1rem;
+    margin-top: 0.8rem;
+}
+
+.calenderBinder,.scheduleBinder,.saveBinder{
+    display: flex;
+    margin-left: 0.1rem;
+    margin-right: 0.1rem;
+}
+
+.calenderBinder,.scheduleBinder,.saveBinder{
+    border: 0.1rem;
+    border-style: solid;
+    border-radius: 0.5rem;
+    background-color: brown;
+}
+
+.calenderBinder > span{
+    border: 0.1rem;
+    border-style: solid;
+    border-radius: 0.5rem;
+    width: 7rem;
+    background-color: azure;
+}
+
+.scheduleBinder > span{
+    border: 0.1rem;
+    border-style: solid;
+    border-radius: 0.5rem;
+    width: 7rem;
+    background-color: azure;
+}
+
+.saveBinder > span{
+    border: 0.1rem;
+    border-style: solid;
+    border-radius: 0.5rem;
+    width: 7rem;
+    background-color: azure;
+}
+
+.shrinkedcalender,.shrinkedschedule,.shrinkedbookmarked{
+    border:0.1rem;
+    border-style: solid;
+    margin-right: 0.5rem;
+    margin-left: -0.5rem;
+    border-radius: 0.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: brown;
+}

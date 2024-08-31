@@ -5,8 +5,20 @@
    height: 47rem;
    width: 12rem;
 }
-
+.shrinkedRecipeSidebar{
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  background-color: rgb(122, 120, 4);
+  height: 47rem;
+  width: 3rem;
+}
 .RecipeSidebar-top-Content{
+   height: 4rem;
+   background-color: burlywood;
+   width: inherit;
+}
+
+.shrinkedRecipeSidebar-top-Content{
    height: 4rem;
    background-color: burlywood;
    width: inherit;
@@ -26,6 +38,12 @@
   bottom: 0;
 }
 
+.shrinkedRecipeSidebar-lower-Content{
+  background-color: cornflowerblue;
+  height: 1rem;
+  bottom: 0;
+}
+
 .savedTitleDiv{
   width:inherit;
   height: 1.5rem;
@@ -39,10 +57,14 @@
 .savedTitles{
   margin-top: 0.5rem;
 }
-
 .RecipeBar-close{
   font-size: 1.1rem;
   margin-left: 10rem;
+}
+
+.shrinkedRecipeBar-close{
+  font-size: 1.1rem;
+  margin-left:1rem;
 }
 
 .RecipeBar-profile{
@@ -51,8 +73,20 @@
   margin-top: 1rem;
 }
 
+.shrinkedRecipeBar-profile{
+  font-size: 1.3rem;
+  margin-left: 1rem;
+  margin-top: 1rem;
+}
+
 .RecipeSidebar-setting{
   font-size: 1.3rem;
   margin-left: 10rem;
+  margin-top: 1rem;
+}
+
+.shrinkedRecipeSidebar-setting{
+  font-size: 1.5rem;
+  margin-left: 1rem;
   margin-top: 1rem;
 }

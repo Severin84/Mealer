@@ -8,7 +8,11 @@
 .MessDashboard-asideDiv{
     background-color: aqua;
     height: inherit;
-    width: 15%;
+    width: 10.5%;
+}
+.shrinkedMessDashboard-asideDiv{
+    height: inherit;
+    width: 3%; 
 }
 
 .MessDashboard-MainDiv{
@@ -16,6 +20,13 @@
     height: inherit;
     width: 85%;
 }
+
+.shrinkedMessDashboard-MainDiv{
+    background-color: cadetblue;
+    height: inherit;
+    width: 100%;
+}
+
 
 /* .MessDashboard-MainBox{
     margin-top: 4rem;

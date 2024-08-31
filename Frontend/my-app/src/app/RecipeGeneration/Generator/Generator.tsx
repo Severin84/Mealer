@@ -2,6 +2,7 @@
 import {HfInference} from "@huggingface/inference"
 
 const Generator =async(ingredients:string) => {
+      
       const hf=new HfInference('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')
 
       const ep = hf.endpoint(
@@ -11,7 +12,7 @@ const Generator =async(ingredients:string) => {
       const stream=ep.chatCompletionStream({
         model:"tgi",
         messages:[{role:"user",content:`Generate a recipe with the following input : ${ingredients}`}],
-        max_tokens:500,
+        max_tokens:4000,
         temperature:0.1,
         seed:0,
       })

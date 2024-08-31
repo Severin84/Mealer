@@ -31,7 +31,6 @@ const DayPlanner_PopUp = () => {
      setPortalOpen(!isPortalOpen);
  }
 
-
   return (
     <div className="DayPlanner_PopUp_Div">
       <div>
@@ -42,7 +41,7 @@ const DayPlanner_PopUp = () => {
        </div>
        <div className='DayPlanner_PopUp_DropDowns'>
         <div className='DayPlanner_PopUp_MealType_DropDown'>
-          <DropdownMenu >
+          <DropdownMenu>
             <DropdownMenuTrigger className='Meal_Type'>Meal Type</DropdownMenuTrigger>
             <DropdownMenuContent>
               <DropdownMenuItem onClick={()=>handleMealType("BreakFast")}>BreakFast</DropdownMenuItem>

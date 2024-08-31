@@ -14,6 +14,15 @@
     align-items: center;
 }
 
+.Shrinked-RecipePage-asideDiv{
+    height:inherit;
+    width: 3%;
+    background-color: bisque;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .RecipePage-MainDiv{
     height:inherit;
     width: 85%;
@@ -23,10 +32,28 @@
     align-items: center;
 }
 
+.shrinkedRecipePage-MainDiv{
+    height:inherit;
+    width: 95%;
+    background-color: cornflowerblue;
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+}
+
 .RecipePage-MainDiv-Content{
     background-color: cadetblue;
     height:40rem;
     width: 70rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.shrinkRecipePage-MainDiv-Content{
+    background-color: cadetblue;
+    height:40rem;
+    width: 80rem;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -40,12 +67,32 @@
     width: 69rem;
     overflow-y: scroll;  
 }
+
+.shrinkedRecipePage-MainDiv-Content-Messages{
+    background-color:chartreuse;
+    min-height: fit-content;
+    max-height:39rem;
+    height:39rem;
+    width: 79rem;
+    overflow-y: scroll;  
+}
+
+
 .RecipePage-MainDiv-Content-Message{
     background-color:chartreuse;
     min-height: fit-content;
     max-height:39rem;
     height:auto;
     width: 69rem;
+    margin-top: 35rem;
+}
+
+.shrinkedRecipePage-MainDiv-Content-Message{
+    background-color:chartreuse;
+    min-height: fit-content;
+    max-height:39rem;
+    height:auto;
+    width: 79rem;
     margin-top: 35rem;
 }
 
@@ -93,8 +140,14 @@
     margin-left: 1rem;
     padding: 0.5rem;
     margin-bottom: 1rem;
+    position: relative;
 }
 
+.saveDiv{
+     position: absolute;
+     bottom: 0px;
+     right:3px
+}
 .RecipePage-MainDiv-Input{
     background-color: deepskyblue;
     width: 70rem;
@@ -104,9 +157,23 @@
     align-items: center;
 }
 
+.shrinkRecipePage-MainDiv-Input{
+    background-color: deepskyblue;
+    width: 80rem;
+    height: 5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
 
 .RecipePage-MainDiv-Input-textarea > textarea{
+    margin-top: 0.4rem;
+    border-radius: 0.5rem;
+}
+
+.shrinkedRecipePage-MainDiv-Input-textarea > textarea{
+    /* margin-left: 5rem; */
     margin-top: 0.4rem;
     border-radius: 0.5rem;
 }

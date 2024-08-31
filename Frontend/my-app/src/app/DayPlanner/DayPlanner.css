@@ -19,6 +19,15 @@
     align-items: center;
 }
 
+.MessDashboard-Heading-Add-Button{
+    width:7rem;
+    height:2rem;
+    background-color: aliceblue;
+    border-radius: 0.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 .MessDashboard-Heading-Date-Title-Div,.MessDashboard-Heading-Add-Button-Div{
     display: flex;
     justify-content: center;
@@ -73,4 +82,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.MessDashboard-Content-breakfast{
+    margin-bottom: 5rem;
+}
+
+.MessDashboard-Content-lunch{
+    margin-bottom: 5rem;
 }
